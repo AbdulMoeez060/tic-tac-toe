@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,400;0,700;0,900;1,300;1,500&display=swap');
 *{
     font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    --header : #2C3333;
-    --body : #395B64;
-    --primary: #A5C9CA;
-    --secondary: #E7F6F2;
 }
+
+.board{
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    grid-template-rows: repeat(3,100px);
+    justify-content: center;
+    align-content: center;
+
+}
+.cell{
+    border: 1px solid black;
+    cursor: pointer;
+}
+
