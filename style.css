@@ -1,18 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:ital,wght@0,400;0,700;0,900;1,300;1,500&display=swap');
-*{
+
+* {
     font-family: 'Poppins', sans-serif;
 }
 
-.board{
+.board {
     display: grid;
-    grid-template-columns: repeat(3,100px);
-    grid-template-rows: repeat(3,100px);
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
     justify-content: center;
     align-content: center;
 
 }
-.cell{
+
+.cell {
     border: 1px solid black;
     cursor: pointer;
+
 }
 
+.cell:hover {
+    background-color: rgba(0, 0, 0, 0.13);
+}
+
+.cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n+1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n+3) {
+    border-right: none;
+}
+
+
+.cell:nth-child(7), .cell:nth-child(8), .cell:nth-child(9) {
+    border-bottom: none;
+}
