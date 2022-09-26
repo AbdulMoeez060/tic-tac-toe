@@ -1,7 +1,16 @@
 
 const gameBoard = (()=>{
     var board = document.querySelector('.board');
-    //board.addEventListener('click',mark);
+    var cells = document.querySelectorAll('.cell');
+
+    cells.forEach(cell=> cell.addEventListener('click',handleClick,{once:true}))
+    
+
+    function handleClick(e){
+        console.log(e.target)
+    }
+    
+    //board.addEventListener('click',mark);,{once:true}to only fire event listener once
 
 })();
 
@@ -9,5 +18,3 @@ const gameBoard = (()=>{
 function Player(name,symbol,turn){
     return {name,symbol,turn,won:0};
 }
-
-var player1 = Player('moeez','o',true);
