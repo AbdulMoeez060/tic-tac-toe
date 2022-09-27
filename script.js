@@ -17,8 +17,19 @@ const gamePlay = (()=>{
         return playerOne.turn? playerOne : playerTwo;
     }
 
+    function changeTurns(){
+        if(playerOne.turn){
+            playerOne.turn = false;
+            playerTwo.turn = true;
+        }
+        else{
+            playerOne.turn = true;
+            playerTwo.turn = false;
+        }
+    }
+
     
-    return {getCurrentPlayer};
+    return {getCurrentPlayer,changeTurns};
 
 })();
 
@@ -36,6 +47,7 @@ const boardController = (()=>{
 
     function handleClick(e){
         console.log(gamePlay.getCurrentPlayer());
+        gamePlay.changeTurns()
     }
 })()
 
