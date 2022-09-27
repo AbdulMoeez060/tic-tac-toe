@@ -1,4 +1,9 @@
 
+function Player(name,symbol,turn){
+    return {name,symbol,turn,won:0};
+}
+
+
 const gamePlay = (()=>{
     var playerOne;
     var playerTwo;
@@ -34,9 +39,6 @@ const gamePlay = (()=>{
 })();
 
 
-function Player(name,symbol,turn){
-    return {name,symbol,turn,won:0};
-}
 
 const boardController = (()=>{
     var board = document.querySelector('.board');
