@@ -7,6 +7,12 @@ function Player(name,symbol,turn){
 const gamePlay = (()=>{
     var playerOne;
     var playerTwo;
+
+    var cellElements = document.querySelectorAll('.cell');
+    const winningCombs = [
+        [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
+    ];
+
     var huButton = document.querySelector('.human');
     huButton.addEventListener('click',vsHuman);
     function vsHuman(){
@@ -33,8 +39,17 @@ const gamePlay = (()=>{
         }
     }
 
+    function checkWin(playerSymbol){
+        return winningCombs.some(comb=>{
+            return comb.every(index =>{
+                console.log(index)
+                return cellElements[index].classList.contains(playerSymbol);
+            })
+        })
+    }
+
     
-    return {getCurrentPlayer,changeTurns};
+    return {getCurrentPlayer,changeTurns,checkWin};
 
 })();
 
@@ -44,11 +59,20 @@ const boardController = (()=>{
     var board = document.querySelector('.board');
     var cells = document.querySelectorAll('.cell');
 
+
     cells.forEach(cell=> cell.addEventListener('click',handleClick,{once:true}))
-    
+    board.classList.add('x');
+
+
 
     function handleClick(e){
+
         placeMark(e.target,gamePlay.getCurrentPlayer().symbol)
+
+        if(gamePlay.checkWin(gamePlay.getCurrentPlayer().symbol)){
+            console.log(gamePlay.getCurrentPlayer().symbol)
+        }
+
         gamePlay.changeTurns()
         changeBoardHover();
     }
