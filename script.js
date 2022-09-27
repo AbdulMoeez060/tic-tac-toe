@@ -9,6 +9,10 @@ const gamePlay = (()=>{
     var playerTwo;
 
     var cellElements = document.querySelectorAll('.cell');
+    var winText = document.querySelector('.game-end-text');
+    var winScreen = document.querySelector('.game-end');
+
+
     const winningCombs = [
         [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
     ];
@@ -48,11 +52,18 @@ const gamePlay = (()=>{
     }
 
     function endGame(isDraw){
-
+        if (isDraw) {
+            
+        }
+        else{
+            winText.innerText = `${this.getCurrentPlayer().name} '${this.getCurrentPlayer().symbol}' Wins!!`;
+        }
+        
+        winScreen.classList.add('show');
     }
 
     
-    return {getCurrentPlayer,changeTurns,checkWin};
+    return {getCurrentPlayer,changeTurns,checkWin,endGame};
 
 })();
 
@@ -73,7 +84,7 @@ const boardController = (()=>{
         placeMark(e.target,gamePlay.getCurrentPlayer().symbol)
 
         if(gamePlay.checkWin(gamePlay.getCurrentPlayer().symbol)){
-            console.log(gamePlay.getCurrentPlayer().symbol)
+            gamePlay.endGame(false)
         }
 
         gamePlay.changeTurns()
