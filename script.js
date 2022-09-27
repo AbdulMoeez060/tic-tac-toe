@@ -21,7 +21,7 @@ const gamePlay = (()=>{
         var buttons = document.querySelector('.buttons');
         buttons.style.display = 'none'
         var board = document.querySelector('.board');
-        board.style.display = 'grid'
+        board.classList.add('reveal');
 
     }
     function getCurrentPlayer(){
@@ -42,10 +42,13 @@ const gamePlay = (()=>{
     function checkWin(playerSymbol){
         return winningCombs.some(comb=>{
             return comb.every(index =>{
-                console.log(index)
                 return cellElements[index].classList.contains(playerSymbol);
             })
         })
+    }
+
+    function endGame(isDraw){
+
     }
 
     

@@ -8,6 +8,7 @@
 }
 
 .board {
+    display: none;
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
@@ -15,6 +16,9 @@
     align-content: center;
     display: none;
 
+}
+.board.reveal{
+    display: grid;
 }
 
 .cell {
@@ -118,3 +122,36 @@
 .cell.o{
     cursor: not-allowed;
 }
+
+.game-end{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.9);
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    flex-direction: column;
+}
+
+.game-end button{
+    font-size: 1.5rem;
+    background-color: #fff;
+    border: 1px solid black;
+    padding: .25em .5em;
+}
+
+.game-end button:hover{
+    background-color: black;
+    border: 1px solid white;
+    color: black;
+}
+
+.game-end.show{
+    display: flex;
+}
+
