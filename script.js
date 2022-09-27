@@ -46,8 +46,12 @@ const boardController = (()=>{
     
 
     function handleClick(e){
-        console.log(gamePlay.getCurrentPlayer());
+        placeMark(e.target,gamePlay.getCurrentPlayer().symbol)
         gamePlay.changeTurns()
+    }
+
+    function placeMark(cell,player){
+        cell.classList.add(player);
     }
 })()
 
