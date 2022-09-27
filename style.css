@@ -13,6 +13,7 @@
     grid-template-rows: repeat(3, 100px);
     justify-content: center;
     align-content: center;
+    display: none;
 
 }
 
