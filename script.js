@@ -53,6 +53,7 @@ const gamePlay = (()=>{
 
     function endGame(isDraw){
         if (isDraw) {
+            winText.innerText = "Draw, Sadly no one Wins...";
             
         }
         else{
@@ -62,8 +63,14 @@ const gamePlay = (()=>{
         winScreen.classList.add('show');
     }
 
+    function isDraw(){
+        return [...cellElements].every(cell =>{
+            return (cell.classList.contains('x')|| cell.classList.contains('o'));
+        })
+    }
+
     
-    return {getCurrentPlayer,changeTurns,checkWin,endGame};
+    return {getCurrentPlayer,changeTurns,checkWin,endGame,isDraw};
 
 })();
 
@@ -81,14 +88,22 @@ const boardController = (()=>{
 
     function handleClick(e){
 
-        placeMark(e.target,gamePlay.getCurrentPlayer().symbol)
+        var symbol = gamePlay.getCurrentPlayer().symbol;
 
-        if(gamePlay.checkWin(gamePlay.getCurrentPlayer().symbol)){
+        placeMark(e.target,symbol)
+
+        if(gamePlay.checkWin(symbol)){
             gamePlay.endGame(false)
         }
+        else if (gamePlay.isDraw()) {
+            gamePlay.endGame(true)
+            
+        }
+        else{
+            gamePlay.changeTurns()
+            changeBoardHover();
+        }
 
-        gamePlay.changeTurns()
-        changeBoardHover();
     }
 
     function placeMark(cell,player){
