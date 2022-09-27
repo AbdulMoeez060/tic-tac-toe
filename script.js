@@ -50,10 +50,17 @@ const boardController = (()=>{
     function handleClick(e){
         placeMark(e.target,gamePlay.getCurrentPlayer().symbol)
         gamePlay.changeTurns()
+        changeBoardHover();
     }
 
     function placeMark(cell,player){
         cell.classList.add(player);
+    }
+
+    function changeBoardHover(){
+        board.classList.remove('x');
+        board.classList.remove('o');
+        board.classList.add(gamePlay.getCurrentPlayer().symbol);
     }
 })()
 
