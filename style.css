@@ -7,6 +7,13 @@
     --sign-size:90px;
 }
 
+h1{
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+
+
 .board {
     display: none;
     display: grid;
@@ -123,7 +130,7 @@
     cursor: not-allowed;
 }
 
-.game-end{
+.game-end , .buttons{
     display: none;
     position: fixed;
     top: 0;
@@ -138,24 +145,24 @@
     flex-direction: column;
 }
 
-.game-end button{
+
+
+.game-end button, .row button{
     font-size: 1.5rem;
     background-color: #fff;
     border: 1px solid black;
     padding: .25em .5em;
 }
 
-.game-end button:hover{
+.game-end button:hover , .row button:hover{
     background-color: black;
     border: 1px solid white;
     color: white;
 }
 
-.buttons.hide{
-    display: none;
-}
 
-.game-end.show{
+
+.game-end.show,.buttons.show{
     display: flex;
 }
 

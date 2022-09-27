@@ -33,6 +33,7 @@ const gamePlay = (()=>{
         buttons.classList.add('hide');
         board.classList.add('reveal');
         board.classList.add('x');
+        buttons.classList.remove('show')
 
     }
     function getCurrentPlayer(){
@@ -107,7 +108,7 @@ const boardController = (()=>{
         })
 
         board.classList.remove('reveal');
-        buttons.classList.remove('hide');
+        buttons.classList.add('show');
 
         winScreen.classList.remove('show');
 
