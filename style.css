@@ -151,6 +151,10 @@
     color: white;
 }
 
+.buttons.hide{
+    display: none;
+}
+
 .game-end.show{
     display: flex;
 }

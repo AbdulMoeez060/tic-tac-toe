@@ -11,6 +11,10 @@ const gamePlay = (()=>{
     var cellElements = document.querySelectorAll('.cell');
     var winText = document.querySelector('.game-end-text');
     var winScreen = document.querySelector('.game-end');
+    var buttons = document.querySelector('.buttons');
+    var board = document.querySelector('.board');
+
+
 
 
     const winningCombs = [
@@ -18,14 +22,17 @@ const gamePlay = (()=>{
     ];
 
     var huButton = document.querySelector('.human');
+
     huButton.addEventListener('click',vsHuman);
+
+
+    
     function vsHuman(){
         playerOne = Player('Player 1','x',true);
         playerTwo = Player('Player 2','o',false);
-        var buttons = document.querySelector('.buttons');
-        buttons.style.display = 'none'
-        var board = document.querySelector('.board');
+        buttons.classList.add('hide');
         board.classList.add('reveal');
+        board.classList.add('x');
 
     }
     function getCurrentPlayer(){
@@ -79,10 +86,32 @@ const gamePlay = (()=>{
 const boardController = (()=>{
     var board = document.querySelector('.board');
     var cells = document.querySelectorAll('.cell');
+    var restart = document.querySelector('.restart');
+    var winScreen = document.querySelector('.game-end');
+    var buttons = document.querySelector('.buttons');
 
+    restart.addEventListener('click',restartGame);
 
-    cells.forEach(cell=> cell.addEventListener('click',handleClick,{once:true}))
-    board.classList.add('x');
+    gameStart()
+
+    function gameStart(){
+        board.classList.remove('x');
+        board.classList.remove('o');
+
+        board.classList.add('x');
+
+        cells.forEach((cell)=> {
+            cell.classList.remove('x');
+            cell.classList.remove('o');
+            cell.addEventListener('click',handleClick,{once:true})
+        })
+
+        board.classList.remove('reveal');
+        buttons.classList.remove('hide');
+
+        winScreen.classList.remove('show');
+
+    }
 
 
 
@@ -115,6 +144,11 @@ const boardController = (()=>{
         board.classList.remove('o');
         board.classList.add(gamePlay.getCurrentPlayer().symbol);
     }
+
+    function restartGame(){
+        gameStart();
+    }
+
 })()
 
 
