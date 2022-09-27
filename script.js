@@ -13,6 +13,7 @@ const gamePlay = (()=>{
     var winScreen = document.querySelector('.game-end');
     var buttons = document.querySelector('.buttons');
     var board = document.querySelector('.board');
+    var turns = document.querySelector('.turns');
 
 
 
@@ -34,6 +35,8 @@ const gamePlay = (()=>{
         board.classList.add('reveal');
         board.classList.add('x');
         buttons.classList.remove('show')
+        turns.innerText = "Player 1's Turn"
+
 
     }
     function getCurrentPlayer(){
@@ -44,10 +47,15 @@ const gamePlay = (()=>{
         if(playerOne.turn){
             playerOne.turn = false;
             playerTwo.turn = true;
+            turns.innerText = "Player 2's Turn"
+
         }
         else{
             playerOne.turn = true;
             playerTwo.turn = false;
+            turns.innerText = "Player 1's Turn"
+
+            
         }
     }
 
