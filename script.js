@@ -48,7 +48,7 @@ const gamePlay = (()=>{
             playerOne.turn = false;
             playerTwo.turn = true;
             turns.innerText = "Player 2's Turn"
-            //aiController.bestMove();
+            aiController.bestMove();
 
         }
         else{
@@ -107,6 +107,9 @@ const boardController = (()=>{
     gameStart()
 
     function gameStart(){
+        for (let i = 0; i < 9; i++) {
+            origBoard[i] = '';         
+        }
         board.classList.remove('x');
         board.classList.remove('o');
 
@@ -149,7 +152,9 @@ const boardController = (()=>{
 
     function placeMark(cell,player){
         origBoard[cell.getAttribute('data-cell')] = player;
+        
         cell.classList.add(player);
+        console.log(aiController.checkWinner());
     }
 
     function changeBoardHover(){
@@ -166,10 +171,54 @@ const boardController = (()=>{
 
 })()
 
+
+
 const aiController = (()=>{
     var cells = document.querySelectorAll('.cell');
 
+    function equals3(a, b, c) {
+        return a == b && b == c && a != '';
+      }
 
+    function checkWinner() {
+        let winner = null;
+        var board = boardController.origBoard;
+        // horizontal
+        for (let i = 0; i < 9; i=i+3) {
+          if (equals3(board[i], board[i+1], board[i+2])) {
+            winner = board[i];
+          }
+        }
+      
+        // Vertical
+        for (let i = 0; i < 3; i++) {
+          if (equals3(board[i], board[i+3], board[i+6])) {
+            winner = board[i];
+          }
+        }
+      
+        // Diagonal
+        if (equals3(board[0], board[4], board[8])) {
+          winner = board[0];
+        }
+        if (equals3(board[2], board[4], board[6])) {
+          winner = board[2];
+        }
+      
+        let openSpots = 0;
+        for (let i = 0; i < 9; i++) {
+            if (board[i] == '') {
+                openSpots++;
+              }
+        }
+      
+        if (winner == null && openSpots == 0) {
+          return 'tie';
+        } else {
+          return winner;
+        }
+
+    }
 
 
     function bestMove(){
@@ -178,7 +227,9 @@ const aiController = (()=>{
         for (let i = 0; i < 9; i++) {
             if(boardController.origBoard[i]===''){
                 boardController.origBoard[i] = 'o'
-                var score = minimax(boardController.origBoard[i]);
+                var score = minimax(boardController.origBoard[i],0, false);
+                boardController.origBoard[i] = ''
+
                 if (score>bestScore) {
                     bestScore = score;
                     bMove = i;
@@ -190,9 +241,49 @@ const aiController = (()=>{
         gamePlay.changeTurns()
     }
 
-    function minimax(board){
-        return 1;
+    let scores = {
+        x : -1,
+        o : 1,
+        tie :0
     }
 
-    return {bestMove}
+    function minimax(board,depth,isMaximizing){
+        let result = checkWinner();
+        if(result!=null){
+            let score = scores[result];
+            return score;
+        }
+
+        if(isMaximizing){
+            let bestScore = -Infinity;
+            for (let i = 0; i < 9; i++) {
+                if (boardController.origBoard[i]=='') {
+                    boardController.origBoard[i] = 'o';
+                    let score = minimax(boardController.origBoard,depth+1,false);
+                    boardController.origBoard[i] = '';
+
+                    bestScore = Math.max(score,bestScore);
+
+                    
+                }
+            }
+            return bestScore;
+        }
+        else{
+            let bestScore = Infinity;
+            for (let i = 0; i < 9; i++) {
+                if (boardController.origBoard[i]=='') {
+                    boardController.origBoard[i] = 'x';
+                    let score = minimax(boardController.origBoard,depth+1,true);
+                    boardController.origBoard[i] = '';
+
+                    bestScore = Math.min(score,bestScore);
+                    
+                }
+            }
+            return bestScore;
+        }
+    }
+
+    return {bestMove,checkWinner}
 })()
