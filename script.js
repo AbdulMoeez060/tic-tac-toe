@@ -99,6 +99,8 @@ const boardController = (()=>{
     var winScreen = document.querySelector('.game-end');
     var buttons = document.querySelector('.buttons');
 
+    var origBoard = ['','','','','','','','',''];
+
     restart.addEventListener('click',restartGame);
 
     gameStart()
@@ -145,6 +147,7 @@ const boardController = (()=>{
     }
 
     function placeMark(cell,player){
+        origBoard[cell.getAttribute('data-cell')] = player
         cell.classList.add(player);
     }
 
@@ -158,7 +161,7 @@ const boardController = (()=>{
         gameStart();
     }
 
+    return {origBoard};
+
 })()
-
-
 
