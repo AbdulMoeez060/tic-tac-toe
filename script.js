@@ -48,6 +48,7 @@ const gamePlay = (()=>{
             playerOne.turn = false;
             playerTwo.turn = true;
             turns.innerText = "Player 2's Turn"
+            //aiController.bestMove();
 
         }
         else{
@@ -147,7 +148,7 @@ const boardController = (()=>{
     }
 
     function placeMark(cell,player){
-        origBoard[cell.getAttribute('data-cell')] = player
+        origBoard[cell.getAttribute('data-cell')] = player;
         cell.classList.add(player);
     }
 
@@ -161,7 +162,37 @@ const boardController = (()=>{
         gameStart();
     }
 
-    return {origBoard};
+    return {origBoard,placeMark};
 
 })()
 
+const aiController = (()=>{
+    var cells = document.querySelectorAll('.cell');
+
+
+
+
+    function bestMove(){
+        let bestScore = -Infinity;
+        let bMove
+        for (let i = 0; i < 9; i++) {
+            if(boardController.origBoard[i]===''){
+                boardController.origBoard[i] = 'o'
+                var score = minimax(boardController.origBoard[i]);
+                if (score>bestScore) {
+                    bestScore = score;
+                    bMove = i;
+                }
+            }
+            
+        }
+        boardController.placeMark(cells[bMove],'o')
+        gamePlay.changeTurns()
+    }
+
+    function minimax(board){
+        return 1;
+    }
+
+    return {bestMove}
+})()
