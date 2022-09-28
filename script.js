@@ -248,7 +248,7 @@ const aiController = (()=>{
         for (let i = 0; i < 9; i++) {
             if(boardController.origBoard[i]===''){
                 boardController.origBoard[i] = 'o'
-                var score = minimax(boardController.origBoard[i],0, false);
+                var score = minimax(boardController.origBoard,0, false);
                 boardController.origBoard[i] = ''
 
                 if (score>bestScore) {
@@ -281,10 +281,10 @@ const aiController = (()=>{
         if(isMaximizing){
             let bestScore = -Infinity;
             for (let i = 0; i < 9; i++) {
-                if (boardController.origBoard[i]=='') {
-                    boardController.origBoard[i] = 'o';
-                    let score = minimax(boardController.origBoard,depth+1,false);
-                    boardController.origBoard[i] = '';
+                if (board[i]=='') {
+                    board[i] = 'o';
+                    let score = minimax(board,depth+1,false);
+                    board[i] = '';
 
                     bestScore = Math.max(score,bestScore);
 
@@ -296,10 +296,10 @@ const aiController = (()=>{
         else{
             let bestScore = Infinity;
             for (let i = 0; i < 9; i++) {
-                if (boardController.origBoard[i]=='') {
-                    boardController.origBoard[i] = 'x';
-                    let score = minimax(boardController.origBoard,depth+1,true);
-                    boardController.origBoard[i] = '';
+                if (board[i]=='') {
+                    board[i] = 'x';
+                    let score = minimax(board,depth+1,true);
+                    board[i] = '';
 
                     bestScore = Math.min(score,bestScore);
                     
