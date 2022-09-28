@@ -23,22 +23,35 @@ const gamePlay = (()=>{
     ];
 
     var huButton = document.querySelector('.human');
+    var aiButton = document.querySelector('.ai');
+
 
     huButton.addEventListener('click',vsHuman);
+    aiButton.addEventListener('click',vsAI);
+
 
 
     
     function vsHuman(){
         playerOne = Player('Player 1','x',true);
         playerTwo = Player('Player 2','o',false);
+        
+        setGame()
+
+    }
+    function vsAI(){
+        playerOne = Player('Player 1','x',true);
+        playerTwo = Player('AI','o',false);
+        setGame()
+    }
+    function setGame(){
         buttons.classList.add('hide');
         board.classList.add('reveal');
         board.classList.add('x');
         buttons.classList.remove('show')
         turns.innerText = "Player 1's Turn"
-
-
     }
+
     function getCurrentPlayer(){
         return playerOne.turn? playerOne : playerTwo;
     }
@@ -47,8 +60,16 @@ const gamePlay = (()=>{
         if(playerOne.turn){
             playerOne.turn = false;
             playerTwo.turn = true;
-            turns.innerText = "Player 2's Turn"
-            aiController.bestMove();
+            if (playerTwo.name === 'AI') {
+                
+                aiController.bestMove();
+
+            }
+            else{
+                turns.innerText = "Player 2's Turn"
+
+            }
+
 
         }
         else{
@@ -154,7 +175,7 @@ const boardController = (()=>{
         origBoard[cell.getAttribute('data-cell')] = player;
         
         cell.classList.add(player);
-        console.log(aiController.checkWinner());
+        //console.log(aiController.checkWinner());
     }
 
     function changeBoardHover(){
@@ -238,6 +259,9 @@ const aiController = (()=>{
             
         }
         boardController.placeMark(cells[bMove],'o')
+        if(gamePlay.checkWin('o')){
+            gamePlay.endGame(false)
+        }
         gamePlay.changeTurns()
     }
 
